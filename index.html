@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap');
+
+            textarea {
+                font-family: "Google Sans Flex", sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 400;
+                font-style: normal;
+                font-size: 50px;
+                text-align: right;
+                width: 100%;
+                border: none;
+                height: 90vh;
+            }
+
+            textarea:focus {
+                outline: none;
+                border: none;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            button {
+                position: fixed;
+                bottom: 10px;
+                left: 0px;
+                font-size: 10px;
+                border: solid gray 1px;
+                cursor: pointer;
+                margin-right: 5px;
+                background-color: white;
+            }
+
+            #importBtn {
+                left: 90px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <textarea id="pad" autofocus>minipad...</textarea>
+        <button onclick="downloadText()">Save as .txt</button>
+        <button id="importBtn" onclick="document.getElementById('fileInput').click()">Import</button>
+        <input type="file" id="fileInput" accept=".txt" style="display:none">
+
+        <script>
+            const textarea = document.getElementById("pad");
+            const fileInput = document.getElementById("fileInput");
+            const COOKIE_NAME = "minipadContent";
+
+            // Save to cookie
+            function saveToCookie() {
+                const text = encodeURIComponent(textarea.value);
+                document.cookie = COOKIE_NAME + "=" + text + "; path=/; max-age=31536000";
+            }
+
+            // Load from cookie
+            function loadFromCookie() {
+                const cookies = document.cookie.split("; ");
+                for (let c of cookies) {
+                    const [name, value] = c.split("=");
+                    if (name === COOKIE_NAME) {
+                        textarea.value = decodeURIComponent(value);
+                        return;
+                    }
+                }
+            }
+
+            // Download as .txt
+            function downloadText() {
+                const blob = new Blob([textarea.value], { type: "text/plain" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "minipad.txt";
+                link.click();
+                URL.revokeObjectURL(link.href);
+            }
+
+            // Import .txt file
+            fileInput.addEventListener("change", function () {
+                const file = fileInput.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    textarea.value = e.target.result;
+                    saveToCookie();
+                };
+                reader.readAsText(file);
+            });
+
+            // Auto-save while typing
+            textarea.addEventListener("input", saveToCookie);
+
+            // Load on startup
+            window.addEventListener("DOMContentLoaded", loadFromCookie);
+        </script>
+    </body>
+</html>
