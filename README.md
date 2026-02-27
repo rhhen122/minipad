@@ -1,6 +1,6 @@
 <img src="https://github.com/rhhen122/minipad/blob/main/images/readme_logo.png?raw=true" height="60px"/>(alpha)
 
-### <a href="https://minipad.dpdns.org/">the true light weight text editor...</a>
+### the true light weight text editor...
 > [!IMPORTANT]
 > minipad is prone to bugs as it is only in alpha and currently rolling release
 
