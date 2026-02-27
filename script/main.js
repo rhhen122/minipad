@@ -8,6 +8,7 @@ const closePopup = document.getElementById("closePopup");
 const sizeIncrease = document.getElementById("sizeIncrease");
 const sizeDecrease = document.getElementById("sizeDecrease");
 const sizeReset = document.getElementById("sizeReset");
+const loading = document.getElementById("loading");
 
 const CONTENT_COOKIE = "minipadContent";
 const THEME_COOKIE = "minipadTheme";
@@ -152,11 +153,22 @@ sizeReset.addEventListener("click", function() {
     setFontSize(50);
 });
 
+function hideLoadingAnimation() {
+    const loader = document.getElementById("loading");
+    if (loader) {
+        loader.classList.add("hidden");
+    }
+}
+
 window.addEventListener("DOMContentLoaded", function() {
     loadFromCookie();
     loadTheme();
     loadAlign();
     loadFontSize();
+});
+
+window.addEventListener("load", function() {
+    hideLoadingAnimation();
 });
 
 // Drag & drop file loading
