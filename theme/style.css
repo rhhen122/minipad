@@ -7,6 +7,7 @@ body {
     transition: background-color 0.25s ease, color 0.25s ease;
 }
 
+
 body.light {
     background-color: #ffffff;
     color: #000000;
@@ -22,6 +23,7 @@ body.light button {
     color: #000000;
     border: 1px solid #999;
 }
+
 
 body.dark {
     background-color: #121212;
@@ -50,6 +52,14 @@ textarea {
     transition: background-color 0.25s ease, color 0.25s ease;
     position: relative;
     z-index: 0;
+}
+
+textarea.align-left {
+    text-align: left;
+}
+
+textarea.align-right {
+    text-align: right;
 }
 
 textarea.drag-over {
@@ -93,6 +103,8 @@ button:hover {
     box-shadow: 0 8px 22px rgba(0,0,0,0.09);
 }
 
+
+
 /* Top-left app icon */
 .top-left {
     position: fixed;
@@ -126,7 +138,7 @@ body.dark .top-left {
 }
 
 /* Make the SVG icon visible in dark mode by inverting its colors */
-.top-left img { filter: none; }
+.top-left img { filter: none; transition: filter 0.25s ease; }
 body.dark .top-left img { filter: invert(1) brightness(2) contrast(1.05); }
 
 .top-left:active {

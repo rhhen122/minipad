@@ -1,12 +1,14 @@
 const textarea = document.getElementById("pad");
 const fileInput = document.getElementById("fileInput");
 const themeToggle = document.getElementById("themeToggle");
+const alignToggle = document.getElementById("alignToggle");
 const logoBtn = document.getElementById("logoBtn");
 const popup = document.getElementById("popup");
 const closePopup = document.getElementById("closePopup");
 
 const CONTENT_COOKIE = "minipadContent";
 const THEME_COOKIE = "minipadTheme";
+const ALIGN_COOKIE = "minipadAlign";
 
 function saveToCookie() {
     const text = encodeURIComponent(textarea.value);
@@ -85,9 +87,38 @@ themeToggle.addEventListener("click", function () {
     setTheme(isDark ? "light" : "dark");
 });
 
+
+
+
+function setAlign(align) {
+    textarea.className = "align-" + align;
+    document.cookie = ALIGN_COOKIE + "=" + align + "; path=/; max-age=31536000";
+    alignToggle.textContent = align === "left" ? "Align Right" : "Align Left";
+}
+
+
+function loadAlign() {
+    const cookies = document.cookie.split("; ");
+    for (let c of cookies) {
+        const [name, value] = c.split("=");
+        if (name === ALIGN_COOKIE) {
+            setAlign(value);
+            return;
+        }
+    }
+    setAlign("right");
+}
+
+alignToggle.addEventListener("click", function () {
+    const isLeft = textarea.classList.contains("align-left");
+    setAlign(isLeft ? "right" : "left");
+});
+
+
 window.addEventListener("DOMContentLoaded", function() {
     loadFromCookie();
     loadTheme();
+    loadAlign();
 });
 
 // Drag & drop file loading

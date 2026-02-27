@@ -1,3 +1,4 @@
  - Add Custom CSS loading
  - Add accounts
  - Add server side storage
+ - Add custom text size
