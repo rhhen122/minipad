@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>minipad...</title>
-    <link id="themeStylesheet" rel="stylesheet" type="text/css" href="theme/light.css">
+    <link rel="stylesheet" type="text/css" href="theme/style.css">
 </head>
 
 <body>
@@ -18,7 +18,6 @@
         const textarea = document.getElementById("pad");
         const fileInput = document.getElementById("fileInput");
         const themeToggle = document.getElementById("themeToggle");
-        const themeStylesheet = document.getElementById("themeStylesheet");
 
         const CONTENT_COOKIE = "minipadContent";
         const THEME_COOKIE = "minipadTheme";
@@ -67,11 +66,11 @@
         textarea.addEventListener("input", saveToCookie);
 
         /* =========================
-           THEME TOGGLE (SEPARATE FILES)
+           THEME TOGGLE (ONE FILE)
         ========================== */
 
         function setTheme(theme) {
-            themeStylesheet.href = "theme/" + theme + ".css";
+            document.body.className = theme;
             document.cookie = THEME_COOKIE + "=" + theme + "; path=/; max-age=31536000";
             themeToggle.textContent = theme === "dark" ? "☀ Light" : "🌙 Dark";
         }
@@ -89,9 +88,8 @@
         }
 
         themeToggle.addEventListener("click", function () {
-            const currentTheme = themeStylesheet.href.includes("dark") ? "dark" : "light";
-            const newTheme = currentTheme === "dark" ? "light" : "dark";
-            setTheme(newTheme);
+            const isDark = document.body.classList.contains("dark");
+            setTheme(isDark ? "light" : "dark");
         });
 
         /* =========================
