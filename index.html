@@ -29,10 +29,16 @@
     <textarea id="pad" autofocus>minipad...</textarea>
 
     <div class="bottom-bar">
-        <button onclick="downloadText()">Save as .txt</button>
+        <button onclick="downloadText()">Export</button>
         <button id="importBtn" onclick="document.getElementById('fileInput').click()">Import</button>
         <button id="alignToggle">Align Left</button>
         <button id="themeToggle">Dark</button>
+    </div>
+
+    <div class="size-controls">
+        <button id="sizeIncrease" title="Increase text size">+</button>
+        <button id="sizeDecrease" title="Decrease text size">−</button>
+        <button id="sizeReset" title="Reset text size">↺</button>
     </div>
 
     <input type="file" id="fileInput" accept=".txt" style="display:none">

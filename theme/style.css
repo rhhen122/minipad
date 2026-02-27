@@ -7,6 +7,7 @@ body {
     transition: background-color 0.25s ease, color 0.25s ease;
 }
 
+textarea { resize: none; }
 
 body.light {
     background-color: #ffffff;
@@ -214,4 +215,26 @@ body.dark .popup-content {
     padding: 6px 12px;
     font-size: 12px;
     cursor: pointer;
+}
+
+/* Size control buttons */
+.size-controls {
+    position: fixed;
+    bottom: 12px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 9999;
+}
+
+.size-controls button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
 }

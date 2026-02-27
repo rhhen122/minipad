@@ -5,10 +5,14 @@ const alignToggle = document.getElementById("alignToggle");
 const logoBtn = document.getElementById("logoBtn");
 const popup = document.getElementById("popup");
 const closePopup = document.getElementById("closePopup");
+const sizeIncrease = document.getElementById("sizeIncrease");
+const sizeDecrease = document.getElementById("sizeDecrease");
+const sizeReset = document.getElementById("sizeReset");
 
 const CONTENT_COOKIE = "minipadContent";
 const THEME_COOKIE = "minipadTheme";
 const ALIGN_COOKIE = "minipadAlign";
+const FONTSIZE_COOKIE = "minipadFontSize";
 
 function saveToCookie() {
     const text = encodeURIComponent(textarea.value);
@@ -115,10 +119,44 @@ alignToggle.addEventListener("click", function () {
 });
 
 
+function setFontSize(size) {
+    textarea.style.fontSize = size + "px";
+    document.cookie = FONTSIZE_COOKIE + "=" + size + "; path=/; max-age=31536000";
+}
+
+function loadFontSize() {
+    const cookies = document.cookie.split("; ");
+    for (let c of cookies) {
+        const [name, value] = c.split("=");
+        if (name === FONTSIZE_COOKIE) {
+            setFontSize(parseInt(value));
+            return;
+        }
+    }
+    setFontSize(50);
+}
+
+sizeIncrease.addEventListener("click", function() {
+    const currentSize = parseInt(window.getComputedStyle(textarea).fontSize);
+    setFontSize(currentSize + 1);
+});
+
+sizeDecrease.addEventListener("click", function() {
+    const currentSize = parseInt(window.getComputedStyle(textarea).fontSize);
+    if (currentSize > 8) {
+        setFontSize(currentSize - 1);
+    }
+});
+
+sizeReset.addEventListener("click", function() {
+    setFontSize(50);
+});
+
 window.addEventListener("DOMContentLoaded", function() {
     loadFromCookie();
     loadTheme();
     loadAlign();
+    loadFontSize();
 });
 
 // Drag & drop file loading
