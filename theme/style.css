@@ -91,3 +91,29 @@ button {
 #themeToggle {
     left: 200px;
 }
+.pad-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+textarea {
+    background: transparent !important;
+    position: relative;
+    z-index: 2;
+    line-height: 1.2em;
+}
+
+.line-highlight {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 0, 0.25);
+    animation: blink 1s infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
