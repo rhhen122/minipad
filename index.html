@@ -4,10 +4,47 @@
     <title>minipad...</title>
     <link rel="stylesheet" type="text/css" href="theme/style.css">
     <link rel="icon" type="image/x-icon" href="images/icon.svg">
+    <style>
+        .pad-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        #pad {
+            width: 100%;
+            height: 300px;
+            font-family: monospace;
+            line-height: 22px;
+            position: relative;
+            background: transparent;
+            z-index: 2;
+            resize: vertical;
+        }
+
+        .line-highlight {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 22px;
+            background: rgba(255, 255, 0, 0.3);
+            animation: blink 1s infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
 </head>
 
 <body>
-    <textarea id="pad" autofocus>minipad...</textarea>
+
+    <div class="pad-wrapper">
+        <div id="lineHighlight" class="line-highlight"></div>
+        <textarea id="pad" autofocus>minipad...</textarea>
+    </div>
 
     <button onclick="downloadText()">Save as .txt</button>
     <button id="importBtn" onclick="document.getElementById('fileInput').click()">Import</button>
@@ -19,13 +56,24 @@
         const textarea = document.getElementById("pad");
         const fileInput = document.getElementById("fileInput");
         const themeToggle = document.getElementById("themeToggle");
+        const highlight = document.getElementById("lineHighlight");
 
         const CONTENT_COOKIE = "minipadContent";
         const THEME_COOKIE = "minipadTheme";
 
-        /* =========================
-           TEXT SAVE / LOAD
-        ========================== */
+        const lineHeight = 22;
+
+        function updateActiveLine() {
+            const cursorPos = textarea.selectionStart;
+            const textBefore = textarea.value.substring(0, cursorPos);
+            const lineNumber = textBefore.split("\n").length - 1;
+            highlight.style.top =
+                (lineNumber * lineHeight - textarea.scrollTop) + "px";
+        }
+
+        textarea.addEventListener("keyup", updateActiveLine);
+        textarea.addEventListener("click", updateActiveLine);
+        textarea.addEventListener("scroll", updateActiveLine);
 
         function saveToCookie() {
             const text = encodeURIComponent(textarea.value);
@@ -60,15 +108,15 @@
             reader.onload = function (e) {
                 textarea.value = e.target.result;
                 saveToCookie();
+                updateActiveLine();
             };
             reader.readAsText(file);
         });
 
-        textarea.addEventListener("input", saveToCookie);
-
-        /* =========================
-           THEME TOGGLE (ONE FILE)
-        ========================== */
+        textarea.addEventListener("input", function() {
+            saveToCookie();
+            updateActiveLine();
+        });
 
         function setTheme(theme) {
             document.body.className = theme;
@@ -93,14 +141,12 @@
             setTheme(isDark ? "light" : "dark");
         });
 
-        /* =========================
-           INIT
-        ========================== */
-
         window.addEventListener("DOMContentLoaded", function() {
             loadFromCookie();
             loadTheme();
+            updateActiveLine();
         });
     </script>
+
 </body>
 </html>
