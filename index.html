@@ -1,65 +1,107 @@
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="light.css">
-    </head>
+<head>
+    <link rel="stylesheet" type="text/css" href="light.css">
+    <title>minipad...</title>
+</head>
 
-    <body>
-        <textarea id="pad" autofocus>minipad...</textarea>
-        <button onclick="downloadText()">Save as .txt</button>
-        <button id="importBtn" onclick="document.getElementById('fileInput').click()">Import</button>
-        <input type="file" id="fileInput" accept=".txt" style="display:none">
+<body class="light">
+    <textarea id="pad" autofocus>minipad...</textarea>
 
-        <script>
-            const textarea = document.getElementById("pad");
-            const fileInput = document.getElementById("fileInput");
-            const COOKIE_NAME = "minipadContent";
+    <button onclick="downloadText()">Save as .txt</button>
+    <button id="importBtn" onclick="document.getElementById('fileInput').click()">Import</button>
+    <button id="themeToggle" style="left:200px;">🌙 Dark</button>
 
-            // Save to cookie
-            function saveToCookie() {
-                const text = encodeURIComponent(textarea.value);
-                document.cookie = COOKIE_NAME + "=" + text + "; path=/; max-age=31536000";
-            }
+    <input type="file" id="fileInput" accept=".txt" style="display:none">
 
-            // Load from cookie
-            function loadFromCookie() {
-                const cookies = document.cookie.split("; ");
-                for (let c of cookies) {
-                    const [name, value] = c.split("=");
-                    if (name === COOKIE_NAME) {
-                        textarea.value = decodeURIComponent(value);
-                        return;
-                    }
+    <script>
+        const textarea = document.getElementById("pad");
+        const fileInput = document.getElementById("fileInput");
+
+        const CONTENT_COOKIE = "minipadContent";
+        const THEME_COOKIE = "minipadTheme";
+
+        /* =========================
+           TEXT SAVE / LOAD
+        ========================== */
+
+        function saveToCookie() {
+            const text = encodeURIComponent(textarea.value);
+            document.cookie = CONTENT_COOKIE + "=" + text + "; path=/; max-age=31536000";
+        }
+
+        function loadFromCookie() {
+            const cookies = document.cookie.split("; ");
+            for (let c of cookies) {
+                const [name, value] = c.split("=");
+                if (name === CONTENT_COOKIE) {
+                    textarea.value = decodeURIComponent(value);
+                    return;
                 }
             }
+        }
 
-            // Download as .txt
-            function downloadText() {
-                const blob = new Blob([textarea.value], { type: "text/plain" });
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                link.download = "minipad.txt";
-                link.click();
-                URL.revokeObjectURL(link.href);
+        function downloadText() {
+            const blob = new Blob([textarea.value], { type: "text/plain" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "minipad.txt";
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }
+
+        fileInput.addEventListener("change", function () {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                textarea.value = e.target.result;
+                saveToCookie();
+            };
+            reader.readAsText(file);
+        });
+
+        textarea.addEventListener("input", saveToCookie);
+
+        /* =========================
+           THEME TOGGLE
+        ========================== */
+
+        const themeToggle = document.getElementById("themeToggle");
+
+        function setTheme(theme) {
+            document.body.classList.remove("light", "dark");
+            document.body.classList.add(theme);
+            document.cookie = THEME_COOKIE + "=" + theme + "; path=/; max-age=31536000";
+            themeToggle.textContent = theme === "dark" ? "☀ Light" : "🌙 Dark";
+        }
+
+        function loadTheme() {
+            const cookies = document.cookie.split("; ");
+            for (let c of cookies) {
+                const [name, value] = c.split("=");
+                if (name === THEME_COOKIE) {
+                    setTheme(value);
+                    return;
+                }
             }
+            setTheme("light"); // default
+        }
 
-            // Import .txt file
-            fileInput.addEventListener("change", function () {
-                const file = fileInput.files[0];
-                if (!file) return;
+        themeToggle.addEventListener("click", function () {
+            const isDark = document.body.classList.contains("dark");
+            setTheme(isDark ? "light" : "dark");
+        });
 
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    textarea.value = e.target.result;
-                    saveToCookie();
-                };
-                reader.readAsText(file);
-            });
+        /* =========================
+           INIT
+        ========================== */
 
-            // Auto-save while typing
-            textarea.addEventListener("input", saveToCookie);
+        window.addEventListener("DOMContentLoaded", function() {
+            loadFromCookie();
+            loadTheme();
+        });
 
-            // Load on startup
-            window.addEventListener("DOMContentLoaded", loadFromCookie);
-        </script>
-    </body>
+    </script>
+</body>
 </html>
