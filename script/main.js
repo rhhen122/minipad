@@ -1,26 +1,9 @@
 const textarea = document.getElementById("pad");
 const fileInput = document.getElementById("fileInput");
 const themeToggle = document.getElementById("themeToggle");
-const highlight = document.getElementById("lineHighlight");
 
 const CONTENT_COOKIE = "minipadContent";
 const THEME_COOKIE = "minipadTheme";
-
-function updateActiveLine() {
-    const style = window.getComputedStyle(textarea);
-    const lineHeight = parseFloat(style.lineHeight);
-    const cursorPos = textarea.selectionStart;
-    const textBefore = textarea.value.substring(0, cursorPos);
-    const lineNumber = textBefore.split("\n").length - 1;
-
-    highlight.style.height = lineHeight + "px";
-    highlight.style.top = (lineNumber * lineHeight - textarea.scrollTop) + "px";
-}
-
-textarea.addEventListener("input", updateActiveLine);
-textarea.addEventListener("click", updateActiveLine);
-textarea.addEventListener("keyup", updateActiveLine);
-textarea.addEventListener("scroll", updateActiveLine);
 
 function saveToCookie() {
     const text = encodeURIComponent(textarea.value);
@@ -55,7 +38,6 @@ fileInput.addEventListener("change", function () {
     reader.onload = function (e) {
         textarea.value = e.target.result;
         saveToCookie();
-        updateActiveLine();
     };
     reader.readAsText(file);
 });
@@ -88,5 +70,4 @@ themeToggle.addEventListener("click", function () {
 window.addEventListener("DOMContentLoaded", function() {
     loadFromCookie();
     loadTheme();
-    updateActiveLine();
 });
