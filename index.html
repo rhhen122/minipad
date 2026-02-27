@@ -2,23 +2,20 @@
 <html>
 <head>
     <title>minipad...</title>
-    <link rel="stylesheet" href="theme/style.css">
+    <link rel="stylesheet" type="text/css" href="theme/style.css">
     <link rel="icon" type="image/x-icon" href="images/icon.svg">
 </head>
 
-<body class="light">
+<body>
 
-<div class="pad-wrapper">
-    <div id="lineHighlight" class="line-highlight"></div>
     <textarea id="pad" autofocus>minipad...</textarea>
-</div>
 
-<button onclick="downloadText()">Save as .txt</button>
-<button id="importBtn" onclick="document.getElementById('fileInput').click()">Import</button>
-<button id="themeToggle">🌙 Dark</button>
+    <button onclick="downloadText()">Save as .txt</button>
+    <button id="importBtn" onclick="document.getElementById('fileInput').click()">Import</button>
+    <button id="themeToggle">🌙 Dark</button>
 
-<input type="file" id="fileInput" accept=".txt" style="display:none">
+    <input type="file" id="fileInput" accept=".txt" style="display:none">
 
-<script src="script/main.js"></script>
+    <script src="script/main.js"></script>
 </body>
 </html>
