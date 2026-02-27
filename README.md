@@ -11,3 +11,4 @@ thanks to:
  - https://fonts.google.com/
  - http://svgrepo.com/
  - https://www.cloudflare.com/
+ - https://vercel.com/
