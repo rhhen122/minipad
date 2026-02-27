@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap');
+
+textarea {
+	font-family: "Google Sans Flex", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 50px;
+    text-align: right;
+    width: 100%;
+    border: none;
+    height: 90vh;
+	}
+
+textarea:focus {
+    outline: none;
+    border: none;
+    }
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+button {
+    position: fixed;
+    bottom: 10px;
+    left: 0px;
+    font-size: 10px;
+    border: solid gray 1px;
+    cursor: pointer;
+    margin-right: 5px;
+    background-color: white;
+	}
+
+#importBtn {
+    left: 90px;
+	}
