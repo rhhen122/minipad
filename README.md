@@ -1,4 +1,4 @@
-<img src="https://github.com/rhhen122/minipad/blob/main/images/readme_logo.png?raw=true" height="60px"/>
+<img src="https://github.com/rhhen122/minipad/blob/main/images/readme_logo.png?raw=true" height="60px"/>(alpha)
 
 ### the true light weight text editor...
 
