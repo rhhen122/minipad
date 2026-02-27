@@ -47,7 +47,7 @@ textarea.addEventListener("input", saveToCookie);
 function setTheme(theme) {
     document.body.className = theme;
     document.cookie = THEME_COOKIE + "=" + theme + "; path=/; max-age=31536000";
-    themeToggle.textContent = theme === "dark" ? "☀ Light" : "🌙 Dark";
+    themeToggle.textContent = theme === "dark" ? "Light" : "Dark";
 }
 
 function loadTheme() {
@@ -71,3 +71,45 @@ window.addEventListener("DOMContentLoaded", function() {
     loadFromCookie();
     loadTheme();
 });
+
+// Drag & drop file loading
+function handleFileDrop(file) {
+    if (!file) return;
+    const isText = !file.type || file.type.startsWith('text') || file.name.toLowerCase().endsWith('.txt');
+    if (!isText) return;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        textarea.value = e.target.result;
+        saveToCookie();
+    };
+    reader.readAsText(file);
+}
+
+document.addEventListener('dragover', function (e) {
+    e.preventDefault();
+    if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
+});
+
+document.addEventListener('drop', function (e) {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) handleFileDrop(f);
+});
+
+textarea.addEventListener('dragover', function (e) {
+    e.preventDefault();
+    if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
+    textarea.classList.add('drag-over');
+});
+
+textarea.addEventListener('dragleave', function () {
+    textarea.classList.remove('drag-over');
+});
+
+textarea.addEventListener('drop', function (e) {
+    e.preventDefault();
+    textarea.classList.remove('drag-over');
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) handleFileDrop(f);
+});
+
