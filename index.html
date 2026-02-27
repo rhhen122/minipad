@@ -9,10 +9,27 @@
 
 <body>
 
+    <button id="logoBtn" class="top-left" title="About minipad">
+        <img src="images/icon.svg" alt="minipad logo">
+    </button>
+
+    <div id="popup" class="popup-modal">
+        <div class="popup-content">
+            <h1>minipad</h1>
+            <p>A minimal notepad for quick thoughts.</p>
+            <p>Your notes are saved automatically to your browser.</p>
+            <div style="margin-top: 16px; text-align: center;">
+                <a href="https://github.com/rhhen122/minipad" target="_blank" style="color: inherit; text-decoration: none;">
+                    <button>GitHub</button>
+                </a>
+            </div>
+            <button id="closePopup" class="close-btn">Close</button>
+        </div>
+    </div>
+
     <textarea id="pad" autofocus>minipad...</textarea>
 
     <div class="bottom-bar">
-        <a href="https://github.com/rhhen122/minipad" target="_blank"><button>Github</button></a>
         <button onclick="downloadText()">Save as .txt</button>
         <button id="importBtn" onclick="document.getElementById('fileInput').click()">Import</button>
         <button id="themeToggle">Dark</button>

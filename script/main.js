@@ -1,6 +1,9 @@
 const textarea = document.getElementById("pad");
 const fileInput = document.getElementById("fileInput");
 const themeToggle = document.getElementById("themeToggle");
+const logoBtn = document.getElementById("logoBtn");
+const popup = document.getElementById("popup");
+const closePopup = document.getElementById("closePopup");
 
 const CONTENT_COOKIE = "minipadContent";
 const THEME_COOKIE = "minipadTheme";
@@ -43,6 +46,21 @@ fileInput.addEventListener("change", function () {
 });
 
 textarea.addEventListener("input", saveToCookie);
+
+// Logo button popup functionality
+logoBtn.addEventListener("click", function() {
+    popup.classList.add("active");
+});
+
+closePopup.addEventListener("click", function() {
+    popup.classList.remove("active");
+});
+
+popup.addEventListener("click", function(e) {
+    if (e.target === popup) {
+        popup.classList.remove("active");
+    }
+});
 
 function setTheme(theme) {
     document.body.className = theme;
