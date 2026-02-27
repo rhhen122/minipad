@@ -7,8 +7,6 @@ body {
     transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* ================= LIGHT ================= */
-
 body.light {
     background-color: #ffffff;
     color: #000000;
@@ -24,8 +22,6 @@ body.light button {
     color: #000000;
     border: 1px solid #999;
 }
-
-/* ================= DARK ================= */
 
 body.dark {
     background-color: #121212;
@@ -43,7 +39,11 @@ body.dark button {
     border: 1px solid #444;
 }
 
-/* ================= SHARED ================= */
+.pad-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
 
 textarea {
     font-family: "Google Sans Flex", sans-serif;
@@ -52,10 +52,27 @@ textarea {
     width: 100%;
     height: 100vh;
     border: none;
+    position: relative;
+    background: transparent;
+    z-index: 2;
 }
 
 textarea:focus {
     outline: none;
+}
+
+.line-highlight {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 0, 0.25);
+    animation: blink 1s infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
 }
 
 button {
