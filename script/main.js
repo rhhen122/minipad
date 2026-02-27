@@ -200,3 +200,12 @@ textarea.addEventListener('drop', function (e) {
     if (f) handleFileDrop(f);
 });
 
+// Source - https://stackoverflow.com/a/67987248
+// Posted by programmerRaj
+// Retrieved 2026-02-27, License - CC BY-SA 4.0
+
+fetch('https://api.github.com/repos/rhhen122/minipad/commits?per_page=1')
+  .then(res => res.json())
+  .then(res => {
+    document.getElementById('commit-message').innerHTML = res[0].commit.message
+  })
