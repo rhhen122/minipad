@@ -1,21 +1,24 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="light.css">
     <title>minipad...</title>
+    <link id="themeStylesheet" rel="stylesheet" type="text/css" href="theme/light.css">
 </head>
 
-<body class="light">
+<body>
     <textarea id="pad" autofocus>minipad...</textarea>
 
     <button onclick="downloadText()">Save as .txt</button>
     <button id="importBtn" onclick="document.getElementById('fileInput').click()">Import</button>
-    <button id="themeToggle" style="left:200px;">🌙 Dark</button>
+    <button id="themeToggle">🌙 Dark</button>
 
     <input type="file" id="fileInput" accept=".txt" style="display:none">
 
     <script>
         const textarea = document.getElementById("pad");
         const fileInput = document.getElementById("fileInput");
+        const themeToggle = document.getElementById("themeToggle");
+        const themeStylesheet = document.getElementById("themeStylesheet");
 
         const CONTENT_COOKIE = "minipadContent";
         const THEME_COOKIE = "minipadTheme";
@@ -64,14 +67,11 @@
         textarea.addEventListener("input", saveToCookie);
 
         /* =========================
-           THEME TOGGLE
+           THEME TOGGLE (SEPARATE FILES)
         ========================== */
 
-        const themeToggle = document.getElementById("themeToggle");
-
         function setTheme(theme) {
-            document.body.classList.remove("light", "dark");
-            document.body.classList.add(theme);
+            themeStylesheet.href = "theme/" + theme + ".css";
             document.cookie = THEME_COOKIE + "=" + theme + "; path=/; max-age=31536000";
             themeToggle.textContent = theme === "dark" ? "☀ Light" : "🌙 Dark";
         }
@@ -85,12 +85,13 @@
                     return;
                 }
             }
-            setTheme("light"); // default
+            setTheme("light");
         }
 
         themeToggle.addEventListener("click", function () {
-            const isDark = document.body.classList.contains("dark");
-            setTheme(isDark ? "light" : "dark");
+            const currentTheme = themeStylesheet.href.includes("dark") ? "dark" : "light";
+            const newTheme = currentTheme === "dark" ? "light" : "dark";
+            setTheme(newTheme);
         });
 
         /* =========================
@@ -101,7 +102,6 @@
             loadFromCookie();
             loadTheme();
         });
-
     </script>
 </body>
 </html>
