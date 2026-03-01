@@ -48,7 +48,11 @@ const FONTSIZE_COOKIE = "minipadFontSize";
 const AUTH_TOKEN_COOKIE = "minipadAuthToken";
 const USERNAME_COOKIE = "minipadUsername";
 
-const API_URL = "http://localhost:3000/api";
+// Detect environment - use Vercel URL in production, localhost in development
+const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1');
+const API_URL = isProduction 
+  ? window.location.origin + '/api' 
+  : "http://localhost:3000/api";
 
 let currentUser = null;
 let authToken = null;
@@ -424,7 +428,7 @@ saveNoteBtn.addEventListener("click", async function() {
 
         if (noteId) {
             // Update existing note
-            response = await fetch(`${API_URL}/notes/${noteId}`, {
+            response = await fetch(`${API_URL}/notes?id=${noteId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -469,7 +473,7 @@ async function deleteNote(event, noteId) {
     if (!confirm("Are you sure you want to delete this note?")) return;
 
     try {
-        const response = await fetch(`${API_URL}/notes/${noteId}`, {
+        const response = await fetch(`${API_URL}/notes?id=${noteId}`, {
             method: "DELETE",
             headers: { "Authorization": `Bearer ${authToken}` }
         });
