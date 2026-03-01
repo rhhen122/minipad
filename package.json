@@ -1,0 +1,13 @@
+{
+  "name": "minipad",
+  "version": "1.0.0",
+  "description": "the true light weight text editor...",
+  "private": true,
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "ws": "^8.16.0"
+  }
+}

@@ -361,6 +361,26 @@ body.dark .notes-panel-header {
     line-height: 1.4;
 }
 
+.notes-panel-share {
+    position: relative;
+    margin: 8px 16px;
+}
+
+.share-panel-btn {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.share-dropdown-in-panel {
+    bottom: auto;
+    left: 0;
+    right: 0;
+    transform: none;
+    top: 100%;
+    margin-top: 6px;
+    min-width: 0;
+}
+
 .new-note-btn {
     margin: 8px 16px;
     width: calc(100% - 32px);
@@ -449,4 +469,70 @@ body.dark .note-rename-input {
 
 .note-delete:hover {
     opacity: 1;
+}
+
+/* Share dropdown */
+.share-wrap {
+    position: relative;
+}
+
+.share-dropdown {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    min-width: 180px;
+    padding: 6px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    background-color: #ffffff;
+    border: 1px solid rgba(0,0,0,0.08);
+    z-index: 10001;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.share-dropdown.active {
+    display: flex;
+}
+
+body.dark .share-dropdown {
+    background-color: #1e1e1e;
+    border-color: rgba(255,255,255,0.12);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.share-dropdown button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 12px;
+    white-space: nowrap;
+}
+
+.share-toast {
+    position: fixed;
+    bottom: 72px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    padding: 10px 16px;
+    border-radius: 8px;
+    background-color: #1e1e1e;
+    color: #fff;
+    font-size: 13px;
+    z-index: 100002;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+.share-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+body.dark .share-toast {
+    background-color: #333;
+    color: #e0e0e0;
 }
