@@ -301,3 +301,274 @@ body.dark .popup-content {
     box-shadow: 0 6px 18px rgba(0,0,0,0.06);
     font-family: ;
 }
+/* Tab Navigation */
+.tab-navigation {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.dark .tab-navigation {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-size: 12px;
+    transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.tab-btn.active {
+    border-bottom-color: #000000;
+    color: #000000;
+}
+
+body.dark .tab-btn.active {
+    border-bottom-color: #ffffff;
+    color: #ffffff;
+}
+
+.tab-btn:hover {
+    color: #666;
+}
+
+body.dark .tab-btn:hover {
+    color: #aaa;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.2s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Auth Forms */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.auth-form h2 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+}
+
+.auth-input {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.auth-input:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .auth-input {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border-color: #444;
+}
+
+body.dark .auth-input:focus {
+    border-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.auth-button {
+    padding: 10px 12px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.25s ease, transform 0.12s ease;
+}
+
+.auth-button:hover {
+    background-color: #333;
+}
+
+.auth-button:active {
+    transform: translateY(1px);
+}
+
+body.dark .auth-button {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.dark .auth-button:hover {
+    background-color: #ccc;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: #0066cc;
+    cursor: pointer;
+    padding: 0;
+    font-size: inherit;
+    text-decoration: underline;
+    transition: color 0.25s ease;
+}
+
+.link-button:hover {
+    color: #0052a3;
+}
+
+body.dark .link-button {
+    color: #66b3ff;
+}
+
+body.dark .link-button:hover {
+    color: #99d1ff;
+}
+
+.error-message {
+    color: #d32f2f;
+    font-size: 12px;
+    margin-top: 4px;
+    min-height: 16px;
+}
+
+body.dark .error-message {
+    color: #ff6b6b;
+}
+
+/* Notes View */
+#notesView h2 {
+    margin: 0 0 12px 0;
+    font-size: 20px;
+}
+
+.note-textarea {
+    min-height: 100px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.note-textarea:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .note-textarea {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border-color: #444;
+}
+
+body.dark .note-textarea:focus {
+    border-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+/* Notes List */
+.notes-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 12px;
+}
+
+body.dark .notes-list {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.note-item {
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    border-left: 3px solid #000000;
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.12s ease;
+}
+
+.note-item:hover {
+    background-color: #e8e8e8;
+    transform: translateX(2px);
+}
+
+body.dark .note-item {
+    background-color: #2a2a2a;
+    border-left-color: #ffffff;
+}
+
+body.dark .note-item:hover {
+    background-color: #333;
+}
+
+.note-item h3 {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.note-item p {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.note-item .note-date {
+    font-size: 11px;
+    opacity: 0.5;
+    margin-top: 4px;
+}
+
+.note-delete-btn {
+    background-color: #d32f2f;
+    color: #ffffff;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+    float: right;
+    transition: background-color 0.25s ease;
+}
+
+.note-delete-btn:hover {
+    background-color: #b71c1c;
+}
+
+.empty-notes {
+    text-align: center;
+    color: #999;
+    padding: 20px 0;
+    font-size: 13px;
+}
+
+body.dark .empty-notes {
+    color: #666;
+}

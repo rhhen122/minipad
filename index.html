@@ -19,13 +19,62 @@
 
     <div id="popup" class="popup-modal">
         <div class="popup-content">
-            <h1>minipad</h1>
-            <p>a simple tiny note taking app...</p>
-            <div style="margin-top: 16px; text-align: center;">
-                <a href="https://github.com/rhhen122/minipad" target="_blank" style="color: inherit; text-decoration: none;">
-                    <button>GitHub</button>
-                </a>
+            <!-- About Tab -->
+            <div id="aboutTab" class="tab-content active">
+                <h1>minipad</h1>
+                <p>a simple tiny note taking app...</p>
+                <div style="margin-top: 16px; text-align: center;">
+                    <a href="https://github.com/rhhen122/minipad" target="_blank" style="color: inherit; text-decoration: none;">
+                        <button>GitHub</button>
+                    </a>
+                </div>
             </div>
+
+            <!-- Auth/Notes Tab -->
+            <div id="authTab" class="tab-content">
+                <!-- Login Form -->
+                <div id="loginForm" class="auth-form">
+                    <h2>Login</h2>
+                    <input type="text" id="loginUsername" placeholder="Username" class="auth-input">
+                    <input type="password" id="loginPassword" placeholder="Password" class="auth-input">
+                    <button id="loginBtn" class="auth-button">Login</button>
+                    <p style="text-align: center; margin-top: 12px;">Don't have an account? <button id="toggleRegister" class="link-button">Register</button></p>
+                    <div id="loginError" class="error-message"></div>
+                </div>
+
+                <!-- Register Form -->
+                <div id="registerForm" class="auth-form" style="display: none;">
+                    <h2>Register</h2>
+                    <input type="text" id="regUsername" placeholder="Username" class="auth-input">
+                    <input type="password" id="regPassword" placeholder="Password" class="auth-input">
+                    <input type="password" id="regPasswordConfirm" placeholder="Confirm Password" class="auth-input">
+                    <button id="registerBtn" class="auth-button">Register</button>
+                    <p style="text-align: center; margin-top: 12px;">Already have an account? <button id="toggleLogin" class="link-button">Login</button></p>
+                    <div id="registerError" class="error-message"></div>
+                </div>
+
+                <!-- Notes View (when logged in) -->
+                <div id="notesView" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2>My Notes</h2>
+                        <button id="logoutBtn" class="auth-button" style="margin: 0;">Logout</button>
+                    </div>
+                    <div style="margin: 12px 0;">
+                        <input type="text" id="noteTitle" placeholder="Note title" class="auth-input">
+                        <textarea id="noteContent" placeholder="Note content..." class="note-textarea"></textarea>
+                        <button id="saveNoteBtn" class="auth-button">Save Note</button>
+                        <div id="noteError" class="error-message"></div>
+                    </div>
+                    <div id="notesList" class="notes-list"></div>
+                </div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button id="aboutTabBtn" class="tab-btn active">About</button>
+                <button id="authTabBtn" class="tab-btn">Account</button>
+            </div>
+
             <button id="closePopup" class="close-btn">Close</button>
         </div>
     </div>
