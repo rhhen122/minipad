@@ -26,12 +26,18 @@ export function initUI(elements) {
     const commitEl = document.getElementById("commit-message");
     if (commitEl) {
         fetch("https://api.github.com/repos/rhhen122/minipad/commits?per_page=1")
-            .then((res) => res.json())
+            .then((res) => {
+                if (!res.ok) throw new Error(`API error: ${res.status}`);
+                return res.json();
+            })
             .then((data) => {
-                if (data[0] && data[0].commit) {
+                if (Array.isArray(data) && data[0] && data[0].commit && data[0].commit.message) {
                     commitEl.textContent = data[0].commit.message;
                 }
             })
-            .catch(() => {});
+            .catch((err) => {
+                console.error("Failed to fetch commit:", err);
+                commitEl.textContent = "Unable to fetch";
+            });
     }
 }
