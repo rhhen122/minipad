@@ -3,23 +3,6 @@
   "version": "1.0.0",
   "description": "the true light weight text editor...",
   "main": "index.js",
-  "repository": "https://github.com/rhhen122/minipad.git",
   "author": "rhhen122 <rokyhenderson222@gmail.com>",
-  "license": "UnLicense",
-  "dependencies": {
-    "bcryptjs": "^3.0.3",
-    "cors": "^2.8.6",
-    "dotenv": "^16.3.1",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "mongodb": "^7.1.0"
-  },
-  "type": "module",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
-  },
-  "engines": {
-    "node": "18.x"
-  }
+  "license": "UnLicense"
 }

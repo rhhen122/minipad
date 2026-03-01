@@ -49,10 +49,16 @@ const AUTH_TOKEN_COOKIE = "minipadAuthToken";
 const USERNAME_COOKIE = "minipadUsername";
 
 // Detect environment - use Vercel URL in production, localhost in development
-const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1');
-const API_URL = isProduction 
-  ? window.location.origin + '/api' 
-  : "http://minipad.dpdns.org/api";
+// file:// and unknown hostnames should fallback to localhost dev server
+const isFileProtocol = window.location.protocol === 'file:';
+const hostname = window.location.hostname;
+const isLocalhost = hostname.includes('localhost') || hostname.includes('127.0.0.1');
+const isProduction = !isFileProtocol && !isLocalhost && hostname !== '';
+const API_URL = isProduction
+  ? window.location.origin + '/api'
+  : "http://localhost:3000/api";
+// log for debugging
+console.log("API_URL set to", API_URL);
 
 let currentUser = null;
 let authToken = null;
