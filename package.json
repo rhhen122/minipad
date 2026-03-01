@@ -1,8 +1,0 @@
-{
-  "name": "minipad",
-  "version": "1.0.0",
-  "description": "the true light weight text editor...",
-  "main": "index.js",
-  "author": "rhhen122 <rokyhenderson222@gmail.com>",
-  "license": "UnLicense"
-}
