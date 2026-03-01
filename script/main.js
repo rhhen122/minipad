@@ -52,7 +52,7 @@ const USERNAME_COOKIE = "minipadUsername";
 const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1');
 const API_URL = isProduction 
   ? window.location.origin + '/api' 
-  : "http://localhost:3000/api";
+  : "http://minipad.dpdns.org/api";
 
 let currentUser = null;
 let authToken = null;
