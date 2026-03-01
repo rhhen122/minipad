@@ -21,7 +21,14 @@ export function getNotesData() {
 }
 
 export function setNotesData(data) {
-    localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(data));
+    try {
+        localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {
+        // localStorage full, disabled, or private mode in some browsers
+        if (typeof console !== "undefined" && console.warn) {
+            console.warn("minipad: could not save notes to localStorage", e);
+        }
+    }
 }
 
 export function readContentCookie() {

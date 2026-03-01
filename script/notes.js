@@ -5,6 +5,8 @@
 import { getNotesData, setNotesData, readContentCookie, setContentCookie } from "./storage.js";
 
 export function createNotes(textarea) {
+    if (!textarea) return { loadFromCookie: function () {}, saveCurrentNoteToStorage: function () {} };
+
     function saveToCookie() {
         setContentCookie(textarea.value);
     }
