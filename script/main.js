@@ -8,7 +8,6 @@ import { createNotes } from "./notes.js";
 import { createPreferences } from "./preferences.js";
 import { createEditor } from "./editor.js";
 import { initUI } from "./ui.js";
-import { createShare } from "./share.js";
 
 function init() {
     const textarea = document.getElementById("pad");

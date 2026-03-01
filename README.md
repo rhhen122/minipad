@@ -27,7 +27,6 @@ All note content and preferences are stored locally in your browser; nothing is 
 - Vanilla HTML, CSS, and JavaScript (ES modules).
 - No build step and no framework. Open `index.html` in a browser or serve the folder as static files.
 - Scripts are split by responsibility:
-  - `script/share.js` - Sharing Intergrations
   - `script/storage.js` — Cookie and localStorage helpers
   - `script/notes.js` — Notes CRUD and panel UI
   - `script/preferences.js` — Theme, alignment, font size
