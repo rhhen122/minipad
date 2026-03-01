@@ -76,3 +76,4 @@ The app is static. Deploy the repo to [Vercel](https://vercel.com); no environme
 - [SVG Repo](http://svgrepo.com/)
 - [Cloudflare](https://www.cloudflare.com/)
 - [Vercel](https://vercel.com/)
+- [MarkedJS](https://marked.js.org/)
