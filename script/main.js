@@ -41,9 +41,6 @@ function init() {
         saveCurrentNoteToStorage,
     });
 
-    const share = createShare(() => textarea.value);
-    share.initShareUI();
-
     initUI({ logoBtn, popup, closePopup, loading });
 
     loadFromCookie();
