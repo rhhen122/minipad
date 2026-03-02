@@ -1,5 +1,8 @@
 <img src="https://github.com/rhhen122/minipad/blob/main/images/readme_logo.png?raw=true" height="60px"/> (alpha)
 
+<img src="https://badgen.net/
+static/Unlicense/Permanent/gray?icon=https://simpleicons.org/icons/unlicense.svg"/>
+
 ### the true light weight text editor...
 
 > [!IMPORTANT]
