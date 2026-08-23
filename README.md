@@ -18,6 +18,7 @@ minipad is a simple and *beautiful* browser-based text editor for people who wan
 - **Theme** — Light / dark mode (saved in a cookie).
 - **Alignment** — Left or right text alignment (saved in a cookie).
 - **Font size** — Increase, decrease, or reset (saved in a cookie).
+- **Vim mode** — Modal editing with QWERTY, Colemak, Dvorak, and AZERTY keyboard layouts (saved in cookies).
 - **Import / Export** — Load `.txt` files or export the current note as `minipad.txt`.
 - **Drag & drop** — Drop a text file onto the pad to import it.
 
@@ -32,7 +33,7 @@ All note content and preferences are stored locally in your browser; nothing is 
 - Scripts are split by responsibility:
   - `script/storage.js` — Cookie and localStorage helpers
   - `script/notes.js` — Notes CRUD and panel UI
-  - `script/preferences.js` — Theme, alignment, font size
+  - `script/preferences.js` — Theme, alignment, font size, Vim and keyboard layout preferences
   - `script/editor.js` — Pad content, import/export, drag-and-drop
   - `script/ui.js` — About popup, loading overlay, GitHub commit info
   - `script/main.js` — Entry point that wires everything together

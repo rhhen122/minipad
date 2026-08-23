@@ -3,7 +3,7 @@
  * Persisted via cookies.
  */
 
-import { THEME_COOKIE, ALIGN_COOKIE, FONTSIZE_COOKIE } from "./storage.js";
+import { THEME_COOKIE, ALIGN_COOKIE, FONTSIZE_COOKIE, VIM_COOKIE, COLEMAK_COOKIE, KEYBOARD_LAYOUT_COOKIE } from "./storage.js";
 
 function readCookie(name) {
     const cookies = document.cookie.split("; ");
@@ -15,7 +15,7 @@ function readCookie(name) {
 }
 
 export function createPreferences(elements) {
-    const { textarea, themeToggle, alignToggle, sizeIncrease, sizeDecrease, sizeReset } = elements;
+    const { textarea, themeToggle, alignToggle, sizeIncrease, sizeDecrease, sizeReset, vimToggle, setVimEnabled, layoutToggle, layoutOptions, setKeyboardLayout } = elements;
 
     function setTheme(theme) {
         document.body.className = theme;
@@ -52,6 +52,37 @@ export function createPreferences(elements) {
         else setFontSize(50);
     }
 
+    function setVim(value) {
+        const enabled = value === true || value === "true";
+        setVimEnabled(enabled);
+        vimToggle.textContent = enabled ? "Vim: On" : "Vim: Off";
+        layoutToggle.hidden = !enabled;
+        if (!enabled) {
+            layoutOptions.classList.remove("active");
+            layoutToggle.setAttribute("aria-expanded", "false");
+        }
+        document.cookie = VIM_COOKIE + "=" + enabled + "; path=/; max-age=31536000";
+    }
+
+    function loadVim() {
+        setVim(readCookie(VIM_COOKIE) === "true");
+    }
+
+    function setKeyboard(value) {
+        const layout = ["qwerty", "colemak", "dvorak", "azerty"].includes(value) ? value : "qwerty";
+        setKeyboardLayout(layout);
+        layoutToggle.textContent = "Layout: " + layout.toUpperCase();
+        layoutToggle.setAttribute("aria-expanded", "false");
+        layoutOptions.classList.remove("active");
+        document.cookie = KEYBOARD_LAYOUT_COOKIE + "=" + layout + "; path=/; max-age=31536000";
+    }
+
+    function loadKeyboardLayout() {
+        const savedLayout = readCookie(KEYBOARD_LAYOUT_COOKIE);
+        const legacyLayout = readCookie(COLEMAK_COOKIE) === "true" ? "colemak" : "qwerty";
+        setKeyboard(savedLayout || legacyLayout);
+    }
+
     themeToggle.addEventListener("click", function () {
         const isDark = document.body.classList.contains("dark");
         setTheme(isDark ? "light" : "dark");
@@ -76,5 +107,35 @@ export function createPreferences(elements) {
         setFontSize(50);
     });
 
-    return { loadTheme, loadAlign, loadFontSize };
+    vimToggle.addEventListener("click", function () {
+        setVim(vimToggle.textContent !== "Vim: On");
+    });
+
+    layoutToggle.addEventListener("click", function () {
+        const isOpen = layoutOptions.classList.toggle("active");
+        layoutToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    layoutOptions.addEventListener("click", function (event) {
+        if (event.target === layoutOptions) {
+            layoutOptions.classList.remove("active");
+            layoutToggle.setAttribute("aria-expanded", "false");
+        }
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && layoutOptions.classList.contains("active")) {
+            layoutOptions.classList.remove("active");
+            layoutToggle.setAttribute("aria-expanded", "false");
+            layoutToggle.focus();
+        }
+    });
+
+    layoutOptions.querySelectorAll("[data-layout]").forEach(function (option) {
+        option.addEventListener("click", function () {
+            setKeyboard(option.dataset.layout);
+        });
+    });
+
+    return { loadTheme, loadAlign, loadFontSize, loadVim, loadKeyboardLayout };
 }

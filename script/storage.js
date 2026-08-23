@@ -7,6 +7,9 @@ export const CONTENT_COOKIE = "minipadContent";
 export const THEME_COOKIE = "minipadTheme";
 export const ALIGN_COOKIE = "minipadAlign";
 export const FONTSIZE_COOKIE = "minipadFontSize";
+export const VIM_COOKIE = "minipadVim";
+export const COLEMAK_COOKIE = "minipadColemak";
+export const KEYBOARD_LAYOUT_COOKIE = "minipadKeyboardLayout";
 export const NOTES_STORAGE_KEY = "minipadNotes";
 
 export function getNotesData() {

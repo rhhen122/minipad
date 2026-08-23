@@ -6,7 +6,7 @@
 import { setContentCookie } from "./storage.js";
 import { createNotes } from "./notes.js";
 import { createPreferences } from "./preferences.js";
-import { createEditor } from "./editor.js";
+import { createEditor, createVimMode } from "./editor.js";
 import { initUI } from "./ui.js";
 
 function init() {
@@ -20,6 +20,9 @@ function init() {
     const sizeIncrease = document.getElementById("sizeIncrease");
     const sizeDecrease = document.getElementById("sizeDecrease");
     const sizeReset = document.getElementById("sizeReset");
+    const vimToggle = document.getElementById("vimToggle");
+    const layoutToggle = document.getElementById("layoutToggle");
+    const layoutOptions = document.getElementById("layoutOptions");
     const loading = document.getElementById("loading");
 
     if (!textarea || !fileInput) return;
@@ -27,6 +30,7 @@ function init() {
     const notes = createNotes(textarea);
     const { loadFromCookie, saveCurrentNoteToStorage } = notes;
 
+    const vim = createVimMode(textarea);
     const preferences = createPreferences({
         textarea,
         themeToggle,
@@ -34,6 +38,11 @@ function init() {
         sizeIncrease,
         sizeDecrease,
         sizeReset,
+        vimToggle,
+        setVimEnabled: vim.setEnabled,
+        layoutToggle,
+        layoutOptions,
+        setKeyboardLayout: vim.setKeyboardLayout,
     });
 
     createEditor(textarea, fileInput, {
@@ -47,6 +56,8 @@ function init() {
     preferences.loadTheme();
     preferences.loadAlign();
     preferences.loadFontSize();
+    preferences.loadVim();
+    preferences.loadKeyboardLayout();
 }
 
 if (document.readyState === "loading") {

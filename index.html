@@ -51,6 +51,22 @@
         <button id="importBtn">Import</button>
         <button id="alignToggle">Align Left</button>
         <button id="themeToggle">Dark</button>
+        <button id="vimToggle">Vim: Off</button>
+        <div class="layout-menu">
+            <button id="layoutToggle" aria-haspopup="true" aria-expanded="false" hidden>Layout: QWERTY</button>
+        </div>
+    </div>
+
+    <div id="layoutOptions" class="layout-modal" role="dialog" aria-modal="true" aria-labelledby="layoutTitle">
+        <div class="layout-modal-content">
+            <h2 id="layoutTitle">Keyboard layout</h2>
+            <div class="layout-options" role="menu">
+                <button type="button" data-layout="qwerty" role="menuitem">QWERTY</button>
+                <button type="button" data-layout="colemak" role="menuitem">Colemak</button>
+                <button type="button" data-layout="dvorak" role="menuitem">Dvorak</button>
+                <button type="button" data-layout="azerty" role="menuitem">AZERTY</button>
+            </div>
+        </div>
     </div>
 
     <div id="notesPanel" class="notes-panel">

@@ -134,6 +134,71 @@ textarea:focus {
     padding: 6px;
 }
 
+.layout-menu {
+    position: relative;
+}
+
+.layout-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 50000;
+}
+
+.layout-modal.active {
+    display: flex;
+}
+
+.layout-modal-content {
+    width: min(320px, 100%);
+    padding: 24px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+}
+
+body.dark .layout-modal-content {
+    background-color: #1e1e1e;
+}
+
+.layout-modal-content h2 {
+    margin: 0 0 16px;
+    font-size: 20px;
+}
+
+.layout-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.layout-options button {
+    width: 100%;
+    text-align: left;
+    box-shadow: none;
+}
+
+.layout-options button:hover {
+    background-color: rgba(0,123,255,0.12);
+}
+
+textarea[data-vim-mode="normal"] {
+    caret-color: transparent;
+}
+
+textarea[data-vim-mode="normal"]::selection {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+body.dark textarea[data-vim-mode="normal"]::selection {
+    background-color: #ffffff;
+    color: #000000;
+}
+
 button {
     font-size: 13px;
     cursor: pointer;
@@ -143,6 +208,10 @@ button {
     box-shadow: 0 6px 18px rgba(0,0,0,0.06);
     transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.12s ease, box-shadow 0.2s ease;
     backdrop-filter: blur(4px);
+}
+
+[hidden] {
+    display: none !important;
 }
 
 button:active {
