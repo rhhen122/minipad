@@ -92,11 +92,13 @@ body.dark button {
 }
 
 textarea {
+    box-sizing: border-box;
     font-family: "Google Sans Flex", sans-serif;
     font-size: 50px;
     text-align: right;
     width: 100%;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 134px);
+    margin-top: 70px;
     padding-bottom: 8px;
     border: none;
     transition: background-color 0.25s ease, color 0.25s ease;
@@ -130,7 +132,7 @@ textarea:focus {
     display: flex;
     gap: 10px;
     align-items: center;
-    z-index: 9999;
+    z-index: 100001;
     padding: 6px;
 }
 

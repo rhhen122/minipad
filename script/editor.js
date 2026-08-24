@@ -103,7 +103,19 @@ export function createVimMode(textarea) {
         azerty: { a: "q", z: "w", m: ";" }
     };
 
-    function commandKey(key) {
+    const colemakCodeToQwerty = {
+        KeyQ: "q", KeyW: "w", KeyE: "e", KeyR: "r", KeyT: "t", KeyY: "y", KeyU: "u", KeyI: "i", KeyO: "o", KeyP: "p",
+        KeyA: "a", KeyS: "s", KeyD: "d", KeyF: "f", KeyG: "g", KeyH: "h", KeyJ: "j", KeyK: "k", KeyL: "l",
+        KeyZ: "z", KeyX: "x", KeyC: "c", KeyV: "v", KeyB: "b", KeyN: "n", KeyM: "m",
+        Semicolon: ";", Comma: ",", Period: ".", Slash: "/"
+    };
+
+    function commandKey(key, code) {
+        if (keyboardLayout === "colemak" && colemakCodeToQwerty[code]) {
+            const mappedKey = colemakCodeToQwerty[code];
+            const isUppercase = key === key.toUpperCase() && key !== key.toLowerCase();
+            return isUppercase ? mappedKey.toUpperCase() : mappedKey;
+        }
         if (keyboardLayout === "qwerty" || key.length !== 1) return key;
         const lowerKey = key.toLowerCase();
         const mappedKey = layoutToQwerty[keyboardLayout][lowerKey];
@@ -156,7 +168,7 @@ export function createVimMode(textarea) {
     function handleNormalKey(event) {
         const position = textarea.selectionStart;
         const value = textarea.value;
-        const key = commandKey(event.key);
+        const key = commandKey(event.key, event.code);
         let nextPosition = position;
 
         if (key === "Escape") return;
@@ -208,7 +220,9 @@ export function createVimMode(textarea) {
         }
 
         event.preventDefault();
-        if (key !== "d" || !textarea.dataset.vimPending) showBlockCursor(Math.max(0, Math.min(nextPosition, textarea.value.length)));
+        if (mode === "normal" && (key !== "d" || !textarea.dataset.vimPending)) {
+            showBlockCursor(Math.max(0, Math.min(nextPosition, textarea.value.length)));
+        }
     }
 
     textarea.addEventListener("keydown", function (event) {
@@ -233,6 +247,7 @@ export function createVimMode(textarea) {
         delete textarea.dataset.vimPending;
         updateMode(enabled ? "normal" : "off");
         if (enabled) showBlockCursor(textarea.selectionStart);
+        else moveTo(textarea.selectionStart);
     }
 
     function setKeyboardLayout(layout) {
